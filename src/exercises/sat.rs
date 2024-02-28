@@ -30,36 +30,13 @@ fn get_input(formula : &str, bits : u32, variables : &Vec<char>) -> String {
   return result;
 }
 
-fn print_table_header(variables : &Vec<char>) {
-  print!("|");
-  for c in variables {
-    print!(" {} |", c);
-  }
-  println!(" = |");
 
-  print!("|");
-  for _ in variables {
-    print!("---|");
-  }
-  println!("---|");
-}
-
-fn print_table_item(bits : u32, len : usize, out_put : bool) {
-  print!("|");
-  for i in 0..len {
-    let bit_value = (bits >> (len - i - 1)) & 1;
-    print!(" {} |", bit_value);
-  }
-  let out_put = if out_put {1} else {0};
-  println!(" {} |", out_put);
-}
-
-pub fn print_truth_table(formula: &str) {
+pub fn sat(formula: &str) -> bool {
   let mut variables : Vec<char> = formula.chars()
       .filter(|&c| !is_operator(&c))
       .collect::<HashSet<char>>().into_iter().collect();
   variables.sort();
-  let is_valid_input = formula.chars().all(|c| (c.is_alphabetic() && c.is_uppercase()) | is_operator(&c));
+  let is_valid_input = formula.chars().all(|c| c.is_alphabetic() | is_operator(&c));
   let is_at_least_one_variable = variables.len() > 0;
   if !is_valid_input {
     panic!("Invalid input");
@@ -71,11 +48,13 @@ pub fn print_truth_table(formula: &str) {
   let mut bits = 0;
   let max = 2 << (variables.len() - 1);
 
-  print_table_header(&variables);
   while bits < max {
     let formula = get_input(formula, bits, &variables);
-    let out_put = eval_formula(&formula);
-    print_table_item(bits, variables.len(), out_put);
+    if eval_formula(&formula) {
+      return true;
+    }
     bits += 1;
   }
+  
+  false
 }
