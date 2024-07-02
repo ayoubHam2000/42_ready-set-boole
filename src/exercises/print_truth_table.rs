@@ -79,3 +79,5 @@ pub fn print_truth_table(formula: &str) {
     bits += 1;
   }
 }
+
+

@@ -142,7 +142,6 @@ impl Token {
 }
 
 pub fn eval_set(formula: &str, sets: Vec<Vec<i32>>) -> Vec<i32> {
-  //todo basic_operation_formula
   let mut stack : Vec<Vec<i32>>  = Vec::new();
   let global_set = union_set(&sets);
   
@@ -150,7 +149,7 @@ pub fn eval_set(formula: &str, sets: Vec<Vec<i32>>) -> Vec<i32> {
     let token = Token::new(c);
     
     let mut pop_stack = || {
-      stack.pop().expect("Expected a set but found the stack empty!")
+      stack.pop().expect("Expected a set but found the stack empty!: the expression is not valid")
     };
 
     match token {
@@ -197,7 +196,7 @@ pub fn eval_set(formula: &str, sets: Vec<Vec<i32>>) -> Vec<i32> {
       },
       Token::Value(a) => {
         let index = ((a as i32) - ('A' as i32)) as usize;
-        if index > sets.len() {
+        if index >= sets.len() {
           panic!("the set {} does not exist", a);
         }
         let mut new_set = sets[index].clone();

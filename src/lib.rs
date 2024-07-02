@@ -1,6 +1,6 @@
 pub mod exercises;
 
-
+// cargo test [name of the test]
 
 #[cfg(test)]
 mod tests {
@@ -11,10 +11,20 @@ mod tests {
     multiplier::multiplier,
     gray_code::gray_code,
     eval_formula::eval_formula,
-    print_truth_table::print_truth_table
+    print_truth_table::print_truth_table,
+    negation_normal_form,
+    conjunctive_normal_form,
+    sat::sat,
+    powerset::powerset,
+    eval_set::eval_set,
+    map::map,
+    reverse_map::reverse_map,
   };
   
 
+  //========================================
+  //======= EX00 ===========================
+  //========================================
   #[test]
   fn test_adder() {
     assert_eq!(adder(10, 5), 15);
@@ -24,6 +34,9 @@ mod tests {
     assert_eq!(adder(0xfffffffe, 1), 0xffffffff);
   }
 
+  //========================================
+  //======= EX01 ===========================
+  //========================================
   #[test]
   fn test_multiplier() {
     assert_eq!(multiplier(70, 7), 490);
@@ -35,6 +48,9 @@ mod tests {
     assert_eq!(multiplier(8569, 45687), 8569 * 45687);
   }
 
+  //========================================
+  //======= EX02 ===========================
+  //========================================
   #[test]
   fn test_gray_code() {
     assert_eq!(gray_code(0), 0);
@@ -44,6 +60,10 @@ mod tests {
     assert_eq!(gray_code(8), 12);
   }
 
+
+  //========================================
+  //======= EX03 ===========================
+  //========================================
   #[test]
   fn test_eval_formula() {
     assert_eq!(eval_formula("10&"), false);
@@ -61,10 +81,10 @@ mod tests {
     assert_eq!(eval_formula("1011||="), true);
 
 
-  }
+    //Should panic
+    //Should panic
 
-  #[test]
-  fn test_eval_formula_panic() {
+
     {
       let result = std::panic::catch_unwind(|| {
         eval_formula("5");
@@ -95,9 +115,125 @@ mod tests {
 
   }
 
+
+  //========================================
+  //======= EX04 ===========================
+  //========================================
+  // cargo test test_print_truth_table -- --nocapture
   #[test]
   fn test_print_truth_table() {
 
+    print_truth_table("AB|");
+    print_truth_table("ABC^|");
+    print_truth_table("AB=ER=&!R|");
+
+
+    //Should panic
+    //Should panic
+    {
+      let result = std::panic::catch_unwind(|| {
+        print_truth_table("5");
+      });
+      assert!(result.is_err());
+    }
+
+    {
+      let result = std::panic::catch_unwind(|| {
+        print_truth_table("AB@");
+      });
+      assert!(result.is_err());
+    }
+
+    {
+      let result = std::panic::catch_unwind(|| {
+        print_truth_table("");
+      });
+      assert!(result.is_err());
+    }
+
+    {
+      let result = std::panic::catch_unwind(|| {
+        print_truth_table("|");
+      });
+      assert!(result.is_err());
+    }
+
   }
+
+
+  //========================================
+  //======= EX05 ===========================
+  //========================================
+  // cargo test test_print_truth_table -- --nocapture
+  #[test]
+  fn test_negation_normal_form() {
+    negation_normal_form::main();
+  }
+
+
+  //========================================
+  //======= EX06 ===========================
+  //========================================
+  // cargo test test_print_truth_table -- --nocapture
+  #[test]
+  fn test_conjunctive_normal_form() {
+    conjunctive_normal_form::main();
+  }
+
+
+  //========================================
+  //======= EX07 ===========================
+  //========================================
+  // cargo test test_print_truth_table -- --nocapture
+  #[test]
+  fn test_sat() {
+    assert_eq!(sat("AB|"), true);
+    assert_eq!(sat("AA!&"), false);
+    assert_eq!(sat("AB="), true);
+    assert_eq!(sat("AB|B!&A!&"), false);
+    assert_eq!(sat("AA^"), false);
+  }
+
+  //========================================
+  //======= EX08 ===========================
+  //========================================
+  #[test]
+  fn test_powerset() {
+    let res = powerset(vec![2, 4]);
+
+    for item in res {
+      println!("=> {:?}", item);
+    }
+  }
+
+  //========================================
+  //======= EX09 ===========================
+  //========================================
+  #[test]
+  fn test_eval_set() {
+    let res = eval_set("A!B&", vec![
+      vec![1, 3, 5],
+      vec![2, 1],
+    ]);
+
+    println!("=> {:?}", res);
+  }
+
+
+  //========================================
+  //======= EX10 And EX11 ==================
+  //========================================
+
+  #[test]
+  fn test_map_reverse_map() {
+    for x in 0..=255 {
+      for y in 0..=255 {
+        println!("{} {}", x, y);
+        assert_eq!(reverse_map(map(x, y)), (x, y));
+      }
+    }
+  }
+
+
 
 }

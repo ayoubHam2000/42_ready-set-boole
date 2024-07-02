@@ -58,3 +58,4 @@ pub fn sat(formula: &str) -> bool {
   
   false
 }
+
