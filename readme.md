@@ -55,7 +55,6 @@ $$
 
 ![](./static/4.gif)
 
-![](./static/5.jpg)
 
 ## How to run
 ```
