@@ -60,7 +60,7 @@ $$
 ```
 install rust => https://www.rust-lang.org/tools/install
 
-cargo test [test_name]
+cargo test [test_name] -- --nocapture
     test_adder
     test_multiplier
     test_gray_code
