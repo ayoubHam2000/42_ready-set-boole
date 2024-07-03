@@ -52,7 +52,9 @@ $$
 - Space-filling curves are mathematical constructs that map a `one-dimensional line` into a `higher-dimensional space`, such as a `plane` or a `volume`, in a `continuous` manner.
 
 - hilbert curve
+
 ![](./static/4.gif)
+
 ![](./static/5.jpg)
 
 ## How to run
