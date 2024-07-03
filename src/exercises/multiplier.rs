@@ -4,15 +4,6 @@ use crate::exercises::adder::adder;
 pub fn multiplier(a : u32, b : u32) -> u32 {
   let mut res ;
 
-  // let mut a = if a > b {
-  //   res = b;
-  //   a
-  // } else {
-  //   res = a;
-  //   b
-  // };
-  // let mut b = res;
-  
   let mut a = a;
   let mut b = b;
 

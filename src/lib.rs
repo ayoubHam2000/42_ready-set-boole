@@ -199,7 +199,7 @@ mod tests {
   //========================================
   #[test]
   fn test_powerset() {
-    let res = powerset(vec![2, 4]);
+    let res = powerset(vec![2, 4, 8]);
 
     for item in res {
       println!("=> {:?}", item);
@@ -211,9 +211,10 @@ mod tests {
   //========================================
   #[test]
   fn test_eval_set() {
-    let res = eval_set("A!B&", vec![
-      vec![1, 3, 5],
-      vec![2, 1],
+    let res = eval_set("AB|C|", vec![
+      vec![1, 8, 9],
+      vec![2, 4],
+      vec![2],
     ]);
 
     println!("=> {:?}", res);

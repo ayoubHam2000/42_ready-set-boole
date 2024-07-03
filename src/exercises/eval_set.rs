@@ -1,32 +1,43 @@
 
 
-fn binary_search(arr : &Vec<i32>, item : i32) -> (bool, usize)
+fn search(arr : &Vec<i32>, item : i32) -> bool
 {
-  if arr.len() == 0 {
-    return (false, 0);
-  }
-
-  let mut a = 0;
-  let mut b = arr.len() - 1;
-
-  while a <= b {
-    let c = (a + b) / 2;
-
-    if arr[c] == item {
-      return (true, c);
-    }
-
-    if arr[c] < item {
-      a = c + 1;
-    } else if c > 0 {
-      b = c - 1;
-    } else {
-      break ;
+  for i in arr {
+    if *i == item {
+      return true;
     }
   }
-
-  (false, 0)
+  false
 }
+
+// fn binary_search(arr : &Vec<i32>, item : i32) -> (bool, usize)
+// {
+//   arr.sort();
+//   if arr.len() == 0 {
+//     return (false, 0);
+//   }
+
+//   let mut a = 0;
+//   let mut b = arr.len() - 1;
+
+//   while a <= b {
+//     let c = (a + b) / 2;
+
+//     if arr[c] == item {
+//       return (true, c);
+//     }
+
+//     if arr[c] < item {
+//       a = c + 1;
+//     } else if c > 0 {
+//       b = c - 1;
+//     } else {
+//       break ;
+//     }
+//   }
+
+//   (false, 0)
+// }
 
 fn union_set(sets : &Vec<Vec<i32>>) -> Vec<i32> {
 
@@ -47,6 +58,7 @@ fn union_set(sets : &Vec<Vec<i32>>) -> Vec<i32> {
   res.push(tmp[0]);
   let mut last = tmp[0];
 
+    //unique
   for item in tmp {
     if last != item {
       last = item;
@@ -63,7 +75,7 @@ fn and_set(set_a : &Vec<i32>, set_b : &Vec<i32>) -> Vec<i32> {
     let mut res : Vec<i32> = vec![];
     
     for item in set_a {
-      if binary_search(&set_b, *item).0 {
+      if search(&set_b, *item) {
         res.push(*item);
       }
     }
@@ -84,7 +96,7 @@ fn or_set(set_a : &Vec<i32>, set_b : &Vec<i32>) -> Vec<i32> {
     let mut res : Vec<i32> = set_b.clone();
 
     for item in set_a {
-      if binary_search(&set_b, *item).0 == false {
+      if search(&set_b, *item) == false {
         res.push(*item);
       }
     }
@@ -98,12 +110,12 @@ fn or_set(set_a : &Vec<i32>, set_b : &Vec<i32>) -> Vec<i32> {
   }
 }
 
-//assuming the global_set is sorted
+
 fn not_set(set : &Vec<i32>, global_set : &Vec<i32>) -> Vec<i32> {
   let mut res = vec![];
 
   for item in global_set {
-    if binary_search(set, *item).0 == false {
+    if search(set, *item) == false {
       res.push(*item);
     }
   }
@@ -200,7 +212,6 @@ pub fn eval_set(formula: &str, sets: Vec<Vec<i32>>) -> Vec<i32> {
           panic!("the set {} does not exist", a);
         }
         let mut new_set = sets[index].clone();
-        new_set.sort();
         stack.push(new_set);
       }
     }
