@@ -232,6 +232,14 @@ mod tests {
         assert_eq!(reverse_map(map(x, y)), (x, y));
       }
     }
+
+    let mut p = 0.0;
+    let step = 1.0 / (2 << 16) as f64;
+    while p <= 1.0 {
+      let r = reverse_map(p);
+      assert!((map(r.0, r.1) - p).abs() < 0.01);
+      p += step;
+    }
   }
 
 

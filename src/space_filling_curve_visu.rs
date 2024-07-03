@@ -51,6 +51,7 @@ impl App {
 
         const BACKGROUND: [f32; 4] = [0.0, 0.0, 0.0, 0.0];
 
+        let draw_speed = 100;
         let dim = 8;
         let nb : u64 = (1 << (dim * 2)) - 1;
         let step = 1.0 / (nb as f64);
@@ -61,7 +62,7 @@ impl App {
             
             clear(BACKGROUND, gl);
 
-            self.max_p += step * ((dim * 100) as f64);
+            self.max_p += step * ((draw_speed) as f64);
             if self.max_p >= 1.0 {
               self.max_p = 1.0;
             }
@@ -97,7 +98,7 @@ impl App {
 
 pub fn run() {
     let opengl = OpenGL::V3_2;
-    let mut window: GlutinWindow = WindowSettings::new("hilbert-curve", [1024, 1024])
+    let mut window: GlutinWindow = WindowSettings::new("hilbert-curve", [1000, 1000])
         /* .opengl(opengl) */
         .exit_on_esc(true)
         .build()
