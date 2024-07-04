@@ -205,7 +205,7 @@ impl Node {
             Node::new(Token::Negation, Some(left), None)
           },
           _ => {
-            panic!("the expression must be in negation normal form.")
+            panic!("Unexpected expression probably it hasn't been reduced to a basic logical structure.")
           }
         }
 
@@ -222,7 +222,7 @@ impl Node {
         Node::new(self.value.clone(), None, None)
       },
       _ => {
-        panic!("the expression must be in negation normal form.")
+        panic!("Unexpected expression probably it hasn't been reduced to a basic logical structure.")
       }
     }
 

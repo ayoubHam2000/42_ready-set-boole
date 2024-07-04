@@ -211,7 +211,7 @@ pub fn eval_set(formula: &str, sets: Vec<Vec<i32>>) -> Vec<i32> {
         if index >= sets.len() {
           panic!("the set {} does not exist", a);
         }
-        let mut new_set = sets[index].clone();
+        let new_set = sets[index].clone();
         stack.push(new_set);
       }
     }

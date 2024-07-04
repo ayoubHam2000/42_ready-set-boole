@@ -39,6 +39,7 @@ Negation Normal Form (NNF) and Conjunctive Normal Form (CNF) are ways to standar
 **CNF**
 - An expression that is a conjunction (AND) of one or more clauses, where each clause is a disjunction (OR) of literals (variables or their negations).
 Example:
+
 $$ 
 (A1​+B1​+¬C1​)⋅(A2​+¬B2​+C2​)⋅…⋅(An​+Bn​+Cn​)
 $$
